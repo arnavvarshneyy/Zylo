@@ -58,7 +58,7 @@ A modern, feature-rich coding platform built with React and Node.js that provide
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/arnavvarshneyy/Zylo.git
+git clone https://github.com/arnavvarshneyy/Zyl0o.git
 cd Zylo
 ```
 
