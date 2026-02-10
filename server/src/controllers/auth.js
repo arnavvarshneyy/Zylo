@@ -2,7 +2,7 @@ const user = require("../models/user");
 const { validate } = require("../utils/validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const redisClient = require("../config/redis");
+const getRedisClient = require("../config/redis");
 require("dotenv").config();
 
 const register = async (req, res) => {
@@ -84,8 +84,8 @@ const login = async (req, res) => {
     // console.log("token is : ", token);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 60 * 60 * 1000,
     });
 
@@ -94,7 +94,9 @@ const login = async (req, res) => {
       message: "Login Successfully",
     });
   } catch (err) {
-    res.status(400).send("Error occured: " + err);
+    res.status(400).json({
+      message: err.message,
+    });
   }
 };
 
@@ -132,6 +134,7 @@ const logout = async (req, res) => {
     const payload = jwt.decode(token);
 
     //first added token in block list for security
+    const redisClient = getRedisClient();
     await redisClient.set(`token:${token}`, "blocked");
     redisClient.expireAt(`token:${token}`, payload.exp);
 
