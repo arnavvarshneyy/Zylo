@@ -3,12 +3,29 @@ const { validate } = require("../utils/validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const getRedisClient = require("../config/redis");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const register = async (req, res) => {
   try {
     validate(req.body);
     const { emailId, password } = req.body;
+
+    // Check MongoDB connection state
+    if (mongoose.connection.readyState !== 1) {
+      console.log("MongoDB not connected in register, state:", mongoose.connection.readyState);
+      // Wait for connection
+      await new Promise((resolve) => {
+        const checkConnection = () => {
+          if (mongoose.connection.readyState === 1) {
+            resolve();
+          } else {
+            setTimeout(checkConnection, 100);
+          }
+        };
+        checkConnection();
+      });
+    }
 
     //check if mail already exists
     if (await user.exists({ emailId })) {
