@@ -17,7 +17,7 @@ export default function Submissions() {
   const fetchSubmissions = async () => {
     try {
       const response = await axiosClient.get(
-        `submission/ProblemSubmissonByUser/${id}`
+        `submission/ProblemSubmissionByUser/${id}`
       );
       setSubmissions(response.data);
       setLoading(false);
