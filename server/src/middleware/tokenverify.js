@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const user = require('../models/user'); 
-const redisClient = require('../config/redis');
+const getRedisClient = require('../config/redis');
 require('dotenv').config();
 
 async function tokenVerifyMiddleware(req, res, next) {
@@ -8,9 +8,12 @@ async function tokenVerifyMiddleware(req, res, next) {
         const { token } = req.cookies;
         if (!token) return res.status(401).send('No token provided');
 
-           //check if token is blocked or not 
-            const isBlocked = await redisClient.exists(`token:${token}`);
-            if(isBlocked) throw new Error('Token expires');
+        // Get Redis client instance
+        const redisClient = getRedisClient();
+        
+        // Check if token is blocked or not 
+        const isBlocked = await redisClient.exists(`token:${token}`);
+        if(isBlocked) throw new Error('Token expires');
             
         const secret = process.env.JWT_SECRET || process.env.jwt_secret_key;
         const payload = jwt.verify(token, secret);

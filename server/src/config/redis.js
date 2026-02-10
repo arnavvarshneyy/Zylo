@@ -25,12 +25,21 @@ function getRedisClient() {
       socket: {
         host: process.env.REDIS_HOST,
         port: process.env.REDIS_PORT,
+        connectTimeout: 5000,
+        lazyConnect: true,
       },
     });
 
     redisClient.on("error", (err) => {
       console.error("Redis Error:", err);
     });
+
+    redisClient.on("connect", () => {
+      console.log("Redis connected successfully");
+    });
+
+    // Connect the client
+    redisClient.connect().catch(console.error);
   }
 
   return redisClient;
