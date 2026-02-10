@@ -56,6 +56,22 @@ const login = async (req, res) => {
     console.log("Login request body:", req.body);
     const { emailId, password } = req.body;
 
+    // Check MongoDB connection state
+    if (mongoose.connection.readyState !== 1) {
+      console.log("MongoDB not connected, state:", mongoose.connection.readyState);
+      // Wait for connection
+      await new Promise((resolve) => {
+        const checkConnection = () => {
+          if (mongoose.connection.readyState === 1) {
+            resolve();
+          } else {
+            setTimeout(checkConnection, 100);
+          }
+        };
+        checkConnection();
+      });
+    }
+
     //check for complete data
     if (!emailId || !password) {
       console.log("Missing email or password");
