@@ -22,7 +22,7 @@ app.use(express.json());
 //allows cors
 app.use(cors({
     origin:["http://localhost:5173",
-        "https://zylo-frontend.vercel.app",
+        "https://zylo-frontend-liart.vercel.app",
     ],   // * - for all origin
     credentials:true,
 }))
