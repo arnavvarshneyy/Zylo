@@ -53,20 +53,30 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log("Login request body:", req.body);
     const { emailId, password } = req.body;
 
     //check for complete data
     if (!emailId || !password) {
+      console.log("Missing email or password");
       throw new Error("Email or password is missing");
     }
 
+    console.log("Looking for user with email:", emailId);
     //check email exists or not
     const foundUser = await user.findOne({ emailId });
-    if (!foundUser) throw new Error("Invalid Credentials");
+    if (!foundUser) {
+      console.log("User not found");
+      throw new Error("Invalid Credentials");
+    }
 
+    console.log("User found, checking password");
     //if email exists then now check for password
     const isMatched = await bcrypt.compare(password, foundUser.password);
-    if (!isMatched) throw new Error("Invalid Credentials");
+    if (!isMatched) {
+      console.log("Password mismatch");
+      throw new Error("Invalid Credentials");
+    }
 
     const userDetails = {
       firstName: foundUser.firstName,
@@ -94,6 +104,7 @@ const login = async (req, res) => {
       message: "Login Successfully",
     });
   } catch (err) {
+    console.log("Login error:", err.message);
     res.status(400).json({
       message: err.message,
     });

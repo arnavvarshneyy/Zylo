@@ -18,6 +18,16 @@ app.set("trust proxy", 1);
 app.use(cookieParser());
 app.use(express.json());
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`, {
+    body: req.body,
+    headers: req.headers,
+    cookies: req.cookies
+  });
+  next();
+});
+
 
 //allows cors
 app.use(cors({
