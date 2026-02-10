@@ -9,8 +9,6 @@ async function main() {
       maxPoolSize: 10,
       retryWrites: true,
       retryReads: true,
-      bufferMaxEntries: 0,
-      bufferCommands: false,
     };
 
     // Connect to MongoDB
