@@ -157,7 +157,7 @@ export default function AlgorithmVisualizationGrid({sectionRef}) {
 
         <div className="mb-6 flex justify-center">
       
-            <motion.button  onClick={() => window.location.href = 'https://sortify-dsa.vercel.app/'} 
+            <motion.button  onClick={() => window.location.href = 'https://sortify-delta.vercel.app/'} 
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               className="px-5 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-black font-medium rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center"
