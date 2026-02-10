@@ -7,7 +7,7 @@ const {submitProblems ,runProblems ,getProblemSubmission , getSolvedProblems} = 
 
 submitRouter.post("/submit/:id" , tokenVerifyMiddleware , submitProblems);
 submitRouter.post("/run/:id" , runProblems);
-submitRouter.get("/ProblemSubmissonByUser/:id" , tokenVerifyMiddleware , getProblemSubmission)
+submitRouter.get("/ProblemSubmissionByUser/:id" , tokenVerifyMiddleware , getProblemSubmission)
 submitRouter.get("/ProblemsSolvedByUser" , tokenVerifyMiddleware , getSolvedProblems)
 
 
