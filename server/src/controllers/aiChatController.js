@@ -42,7 +42,7 @@ const aiChatResponse = async (req, res) => {
     
     const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY;
     const ai = new GoogleGenerativeAI(geminiKey);
-    const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = ai.getGenerativeModel({ model: "gemini-3-flash-preview" });
 
     const result = await model.generateContent({
       contents: cleanedChatHistory,
