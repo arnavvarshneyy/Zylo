@@ -7,8 +7,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "env": {
-    "VITE_API_URL": "https://zylo-backend-g3acw89c4-arnav-varshneys-projects-9f73215c.vercel.app"
-  }
+  ]
 }

@@ -33,7 +33,6 @@ app.use((req, res, next) => {
 app.use(cors({
     origin:["http://localhost:5173",
         "https://zylo-frontend-liart.vercel.app",
-        "https://zylo-backend-g3acw89c4-arnav-varshneys-projects-9f73215c.vercel.app",
     ],   // * - for all origin
     credentials:true,
 }))
