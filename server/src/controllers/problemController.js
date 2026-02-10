@@ -1,6 +1,6 @@
 const user = require("../models/user");
 const Problem = require("../models/Problem");
-const redisClient = require("../config/redis");
+const getRedisClient = require("../config/redis");
 const { checkMandatory } = require("../utils/validator");
 const {
   getIdByLanguage,
@@ -330,6 +330,7 @@ const getDailyProblem = async (req, res) => {
     const redisKey = `problem_${today}`;
 
     // 2. first check in redis for fast access
+    const redisClient = getRedisClient();
     const dailyProblem = await redisClient.get(redisKey);
     if (dailyProblem) {
       return res.json(JSON.parse(dailyProblem));

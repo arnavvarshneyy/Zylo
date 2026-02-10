@@ -1,31 +1,17 @@
-// const mongoose =require('mongoose');
-
-// async function main(){
-// await mongoose.connect(process.env.mongoose_url);
-// // console.log('connected with database')
-// }
-
-// module.exports=main;
-
-
-const mongoose = require("mongoose");
-
-let isConnected = false;
+const mongoose = require('mongoose');
 
 async function main() {
-  if (isConnected) return;
-
   try {
     await mongoose.connect(process.env.mongoose_url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+      maxPoolSize: 10, // Maintain up to 10 socket connections
+      bufferCommands: false, // Disable mongoose buffering
+      bufferMaxEntries: 0 // Disable mongoose buffering
     });
-
-    isConnected = true;
-    console.log("MongoDB connected");
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-    throw err;
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    throw error;
   }
 }
 
