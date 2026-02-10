@@ -3,7 +3,7 @@ const { validate } = require("../utils/validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const getRedisClient = require("../config/redis");
-const mongoose = require("mongoose");
+const { ensureConnection } = require("../config/db");
 require("dotenv").config();
 
 const register = async (req, res) => {
@@ -11,20 +11,10 @@ const register = async (req, res) => {
     validate(req.body);
     const { emailId, password } = req.body;
 
-    // Check MongoDB connection state
-    if (mongoose.connection.readyState !== 1) {
-      console.log("MongoDB not connected in register, state:", mongoose.connection.readyState);
-      // Wait for connection
-      await new Promise((resolve) => {
-        const checkConnection = () => {
-          if (mongoose.connection.readyState === 1) {
-            resolve();
-          } else {
-            setTimeout(checkConnection, 100);
-          }
-        };
-        checkConnection();
-      });
+    // Ensure MongoDB connection
+    const isConnected = await ensureConnection();
+    if (!isConnected) {
+      throw new Error("Database connection failed. Please try again.");
     }
 
     //check if mail already exists
@@ -73,20 +63,10 @@ const login = async (req, res) => {
     console.log("Login request body:", req.body);
     const { emailId, password } = req.body;
 
-    // Check MongoDB connection state
-    if (mongoose.connection.readyState !== 1) {
-      console.log("MongoDB not connected, state:", mongoose.connection.readyState);
-      // Wait for connection
-      await new Promise((resolve) => {
-        const checkConnection = () => {
-          if (mongoose.connection.readyState === 1) {
-            resolve();
-          } else {
-            setTimeout(checkConnection, 100);
-          }
-        };
-        checkConnection();
-      });
+    // Ensure MongoDB connection
+    const isConnected = await ensureConnection();
+    if (!isConnected) {
+      throw new Error("Database connection failed. Please try again.");
     }
 
     //check for complete data
