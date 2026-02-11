@@ -45,7 +45,7 @@ const dispatch = useDispatch();
             {/* <NavItem icon={<User size={18} />} text="About" onClick={() => handleNavigation('about')} /> */}
             <NavItem icon={<Code size={18} />} text="Problems" onClick={() => handleNavigation('problems')} />
             {/* <NavItem icon={<GitBranch size={18} />} text="Discuss" onClick={() => handleNavigation('discuss')} /> */}
-            <NavItem icon={<BarChart2 size={18} />} text="Visualize DSA" onClick={() => window.location.href = 'https://sortify-dsa.vercel.app/'} />
+            <NavItem icon={<BarChart2 size={18} />} text="Visualize DSA" onClick={() => window.location.href = 'https://sortify-delta.vercel.app/'} />
             {role === 'admin' && (
               <NavItem icon={<User size={18} />} text="Admin Panel" onClick={() => handleNavigation('admin')} />
             )}
@@ -110,7 +110,7 @@ const dispatch = useDispatch();
             {/* <MobileNavItem icon={<User size={18} />} text="About" onClick={() => handleNavigation('about')} /> */}
             <MobileNavItem icon={<Code size={18} />} text="Problems" onClick={() => handleNavigation('problems')} />
             {/* <MobileNavItem icon={<GitBranch size={18} />} text="Discuss" onClick={() => handleNavigation('discuss')} /> */}
-            <MobileNavItem icon={<BarChart2 size={18} />} text="Visualize DSA" onClick={() => window.location.href = 'https://sortify-dsa.vercel.app/'} />
+            <MobileNavItem icon={<BarChart2 size={18} />} text="Visualize DSA" onClick={() => window.location.href = 'https://sortify-delta.vercel.app/'} />
             {!isAuthenticated && (
               <>
                 <MobileNavItem text="Sign In" onClick={() => navigate('/auth')}/>
