@@ -70,7 +70,7 @@ export default function Description() {
             Examples
           </h2>
           
-          {problem.visibleTestCases.map((example, index) => (
+          {problem.visibleTestCases.map((testCase, index) => (
             <div key={index} className={`bg-gray-700/20 backdrop-blur-sm border border-gray-700 rounded-lg overflow-hidden`}>
               {/* Example Header */}
               <div className={`flex items-center justify-between ${bgColor} px-4 py-3 border-b ${borderColor}`}>
