@@ -64,13 +64,13 @@ export default function Description() {
       </div>
 
       {/* Examples Section */}
-      {problem?.examples?.length > 0 && (
+      {problem?.testCase?.length > 0 && (
         <div className="space-y-6">
           <h2 className="text-xl font-semibold text-gray-100">
             Examples
           </h2>
           
-          {problem.examples.map((example, index) => (
+          {problem.testCase.map((example, index) => (
             <div key={index} className={`bg-gray-700/20 backdrop-blur-sm border border-gray-700 rounded-lg overflow-hidden`}>
               {/* Example Header */}
               <div className={`flex items-center justify-between ${bgColor} px-4 py-3 border-b ${borderColor}`}>
@@ -89,7 +89,7 @@ export default function Description() {
                   <div className="flex items-center justify-between mb-2 ">
                     <span className="text-sm font-mono text-gray-400">Input</span>
                     <button 
-                      onClick={() => copyToClipboard(example.input, `input-${index}`)}
+                      onClick={() => copyToClipboard(testCase.input, `input-${index}`)}
                       className="text-gray-400 hover:text-amber-400 transition-colors flex items-center gap-1 text-xs"
                     >
                       {copiedIndex === `input-${index}` ? (
@@ -106,7 +106,7 @@ export default function Description() {
                     </button>
                   </div>
                   <pre className="font-mono text-sm text-gray-100 bg-gray-600/30 p-3 rounded overflow-x-auto">
-                    <code>{example.input}</code>
+                    <code>{testCase.input}</code>
                   </pre>
                 </div>
 
@@ -115,7 +115,7 @@ export default function Description() {
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-mono text-gray-400">Output</span>
                     <button 
-                      onClick={() => copyToClipboard(example.output, `output-${index}`)}
+                      onClick={() => copyToClipboard(testCase.output, `output-${index}`)}
                       className="text-gray-400 hover:text-amber-400 transition-colors flex items-center gap-1 text-xs"
                     >
                       {copiedIndex === `output-${index}` ? (
@@ -132,18 +132,18 @@ export default function Description() {
                     </button>
                   </div>
                   <pre className="font-mono text-sm text-gray-100 bg-gray-600/30 p-3 rounded overflow-x-auto">
-                    <code>{example.output}</code>
+                    <code>{testCase.output}</code>
                   </pre>
                 </div>
 
                 {/* Explanation (if exists) */}
-                {example.explanation && (
+                {testCase.explanation && (
                   <div className={`${bgColor} p-3 rounded`}>
                     <div className="flex items-center gap-2 mb-1">
                       <div className="w-1.5 h-1.5 rounded-full bg-amber-400"></div>
                       <h3 className="text-sm font-medium text-amber-400">Explanation</h3>
                     </div>
-                    <p className={`${textColor}/90 text-sm`}>{example.explanation}</p>
+                    <p className={`${textColor}/90 text-sm`}>{testCase.explanation}</p>
                   </div>
                 )}
               </div>
